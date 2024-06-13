@@ -2,13 +2,13 @@ import subprocess
 import os
 import tempfile
 import gradio as gr
+import torch
 
-
-def swap_faces(source_image_path, input_video_path, enhance_face, enhance_frame,device="cpu"):
+def swap_faces(source_image_path, input_video_path, enhance_face, enhance_frame):
     target_ext = input_video_path.split('.')[-1]
     output_video_file = tempfile.NamedTemporaryFile(suffix=f'.{target_ext}', delete=False)
     output_video_path = output_video_file.name
-
+	device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     cli_args = ["python", "run.py", "--headless", "-s", source_image_path, "-t", input_video_path, "-o", output_video_path,"--trim-frame-end","25"]
     cli_args.append("--execution-providers")
     if device == "cuda":
@@ -36,4 +36,4 @@ demo = gr.Interface(
 
 if __name__ == "__main__":
     demo.queue(api_open=True)
-    demo.launch(show_error=True, show_api=True)
+    demo.launch(share=True, show_api=True)
