@@ -23,7 +23,7 @@ def swap_faces(source_image_path, input_video_path, enhance_face, enhance_frame)
     cli_args.append("--frame-processors")
     cli_args.extend(frame_processors)
     cli_args.append("--execution-providers")
-    if device == "cuda":
+    if device.type == "cuda":
         cli_args.append("cuda")
     else:
         cli_args.append("cpu")
