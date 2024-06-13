@@ -15,7 +15,7 @@ def swap_faces(source_image_path, input_video_path, enhance_face, enhance_frame)
     frame_count = get_video_frame_count(input_video_path)
     frame_processors = ['face_swapper','face_enhancer']
     target_ext = input_video_path.split('.')[-1]
-	device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     output_video_file = tempfile.NamedTemporaryFile(suffix=f'.{target_ext}', delete=False)
     output_video_path = output_video_file.name
 
